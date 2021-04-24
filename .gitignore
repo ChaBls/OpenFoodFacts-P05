@@ -1,0 +1,7 @@
+__pycache__/
+category.py
+category_product.py
+Pipfile
+shop.py
+shop_product.py
+substitute.py
