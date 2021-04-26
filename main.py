@@ -7,5 +7,5 @@ from constantes import CATEGORIES_NAMES
 manager=Manager()
 
 manager.popular_categories()
-manager.ten_products(CATEGORIES_NAMES)
+manager.ten_products()
 
