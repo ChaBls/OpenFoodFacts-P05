@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:Utf8
-from manager import Manager
-from constantes import CATEGORIES_NAMES
+from category_manager import CategoryManager
+from product_manager import ProductManager
+from api_manager import APIManager
 
 
-manager=Manager()
+manager_object=APIManager()
 
-manager.popular_categories()
-manager.ten_products()
+# We ask the program to create 10 objects from Product(), based on the categories we've saved with the 1st method.
+manager_object.ten_products(manager_object.popular_categories())
 
