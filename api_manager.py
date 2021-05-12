@@ -2,6 +2,7 @@
 # -*- coding:Utf8
 from product import Product
 from category import Category
+from product_manager import ProductManager
 import json
 import requests
 
@@ -44,4 +45,8 @@ class APIManager:
             for product in products_list[:10]: # Pour chaque dictionnaire de la liste
                 product_objects.append(Product(name=product['product_name'],nutriscore=product['nutriscore_grade'],url=product['url']))
             return product_objects
+
+    def sending_products(self, ten_products):
+        product_manager=ProductManager()
+        product_manager.save()
 
