@@ -7,10 +7,11 @@ import sys
 class Manager:
 
     def save(self):
-        connection = mariadb.connect(
+        pass
+        '''connection = mariadb.connect(
             user="chanelire",
             password=None,
             host="192.0.2.1",
             database="OpenFoodFacts"
         )
-
+        '''
