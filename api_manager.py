@@ -10,12 +10,8 @@ import requests
 class APIManager:
 
     def popular_categories(self):
-        '''A request is made with "requests" module, the result is encoded and saved into "category_results".
-        "tags" list (from the results) is saved into "category_list" and contains a dictionaries list.
-        The list is sorted and saved into "sorted_category_list" and 2 empty lists are created : saved_categories" and "category_objects".
-        Categories names are saved into the dirst empty list and Category() objects are created and saved, with the previously saved names as "name" attributes.
-        The method returns categories names.
-        '''
+        # Categories objects are created from OpenFoodFacts API, saved and returned.
+
         category_request = requests.get('https://fr.openfoodfacts.org/categories.json') # request
         category_results = category_request.json()  # encoding
         category_list = category_results['tags']    # liste de dictionnaires
@@ -28,25 +24,22 @@ class APIManager:
         return saved_categories
 
     def ten_products(self,popular_categories):
-        '''Each category name is saved into "saved_categories" list, created in the previous method.
-        In the following "for" loop, for each dictionary contained in "saved_categories":
-        A request is done from an URL, with the "requests" module. Each "{}" in the link is replaced by the name of the category.
-        The final list is encoded and saved into "results".
-        Dictionary list, coming from the request, is saved into "products_list".
-        In "for" loop, for each dictionary of "products_list", a Product() object is created and saved into "product_objects" list.
-        The attributes of these objects are obtained from dictionaries key/value.
-        The method returns a list of Product() objects.
-        '''
+
+        # Product objects are created using the previous method; objects are then returned.
+
         for category in self.popular_categories():
             product_request = requests.get('https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0={}&json=1'.format(category))
             product_results = product_request.json()
             products_list = product_results['products'] # Liste de dictionnaires
             product_objects=[]
             for product in products_list[:10]: # Pour chaque dictionnaire de la liste
-                product_objects.append(Product(name=product['product_name'],nutriscore=product['nutriscore_grade'],url=product['url']))
-            return product_objects
+                product_objects.append(Product(name=product['product_name'],nutriscore=product['nutriscore_grade'],url=product['url'],categories=product['categories']))
+        return product_objects
 
-    def sending_products(self, ten_products):
+    def sending_products(self):
+        # Product objects created in the previous method are saved; save() method from ProductManager class is called.
+
+        ten_products_result = self.ten_products(self.popular_categories())
         product_manager=ProductManager()
-        product_manager.save()
+        product_manager.save(ten_products_result)
 
