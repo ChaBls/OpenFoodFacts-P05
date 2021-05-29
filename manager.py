@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:Utf8
-import mariadb
+#import mariadb
 import sys
 
 #Mariadb connection is established bellow
