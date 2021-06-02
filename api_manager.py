@@ -34,7 +34,9 @@ class APIManager:
             product_objects=[]
             for product in products_list[:10]: # Pour chaque dictionnaire de la liste
                 product_objects.append(Product(name=product['product_name'],nutriscore=product['nutriscore_grade'],url=product['url'],categories=product['categories']))
-        return product_objects
+            for product in product_objects:
+                object_list = [product.name,product.nutriscore,product.url]
+        return tuple(object_list)
 
     def sending_products(self):
         # Product objects created in the previous method are saved; save() method from ProductManager class is called.
