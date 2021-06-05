@@ -14,5 +14,6 @@ class ProductManager:
         values = products
         cursor.execute(sql,values)
         data_base.commit()
+        print(cursor.lastrowid)
         data_base.close()
 
