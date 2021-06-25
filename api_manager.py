@@ -36,7 +36,7 @@ class APIManager:
                 product_objects.append(Product(name=product['product_name'],nutriscore=product['nutriscore_grade'],url=product['url'],categories=product['categories']))
             for product in product_objects:
                 object_list = [product.name,product.nutriscore,product.url]
-        return tuple(object_list)
+        return object_list
 
     def sending_products(self):
         # Product objects created in the previous method are saved; save() method from ProductManager class is called.
@@ -44,4 +44,5 @@ class APIManager:
         ten_products_result = self.ten_products(self.popular_categories())
         product_manager=ProductManager()
         product_manager.save(ten_products_result)
-
+        product_manager.saving_categories(ten_products_result)
+    
